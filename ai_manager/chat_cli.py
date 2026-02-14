@@ -43,6 +43,25 @@ def _build_prompt(user_instruction: str) -> str:
     )
 
 
+def _build_repair_prompt(*, user_instruction: str, bad_output: str) -> str:
+    return (
+        "You returned invalid JSON previously. Repair it.\n"
+        "Return ONLY a single valid JSON object. No markdown, no prose.\n\n"
+        "The JSON MUST match this payload schema exactly:\n"
+        "{\n"
+        "  \"file\": \"site.json\",\n"
+        "  \"operation\": \"replace\" | \"append\" | \"delete\",\n"
+        "  \"content\": { ... }\n"
+        "}\n\n"
+        "Reminder:\n"
+        "- replace: content is the full new JSON for site.json (keys: bio, services, projects, contact)\n"
+        "- append/delete: content has shape {\"section\": <bio|services|projects|contact>, \"data\": {...}}\n\n"
+        f"Original instruction: {user_instruction}\n\n"
+        "Bad output to repair (verbatim):\n"
+        f"{bad_output}\n"
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     load_dotenv()
 
@@ -72,7 +91,13 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 prompt = _build_prompt(user)
                 raw = chat(prompt=prompt, model=args.model, host=args.host)
-                payload = extract_json_object(raw)
+                try:
+                    payload = extract_json_object(raw)
+                except OllamaError:
+                    print("Model output wasn't valid JSON; retrying once...", file=sys.stderr)
+                    repair = _build_repair_prompt(user_instruction=user, bad_output=raw)
+                    raw2 = chat(prompt=repair, model=args.model, host=args.host)
+                    payload = extract_json_object(raw2)
 
             result = apply_update(payload)
             print(json.dumps(result, indent=2), file=sys.stderr)
@@ -87,7 +112,8 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps({"git": git_result}, indent=2), file=sys.stderr)
 
         except (ContentUpdateError, OllamaError, GitError, json.JSONDecodeError) as e:
-            print(f"Error: {e}", file=sys.stderr)
+            msg = str(e)
+            print(f"Error: {msg}", file=sys.stderr)
         except Exception as e:
             print(f"Unexpected error: {e}", file=sys.stderr)
 
