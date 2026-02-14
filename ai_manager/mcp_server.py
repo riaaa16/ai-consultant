@@ -42,6 +42,47 @@ def _unwrap_inspector_args(arg: dict[str, Any]) -> dict[str, Any]:
 
 
 @mcp.tool()
+def get_website_content(payload: dict[str, Any]) -> dict[str, Any]:
+        """Read website content JSON.
+
+        Payload format:
+            {
+                "file": "site.json"
+            }
+
+        Returns:
+            {
+                "status": "ok",
+                "file": "site.json",
+                "content": { ... }
+            }
+        """
+
+        payload = _unwrap_inspector_args(payload)
+        if not isinstance(payload, dict):
+                return {"status": "error", "error": "Payload must be an object"}
+
+        file_name = payload.get("file")
+        if file_name != "site.json":
+                return {"status": "error", "error": "Invalid or unsupported file"}
+
+        try:
+                path = repo_root() / "website" / "content" / file_name
+                content = path.read_text(encoding="utf-8")
+        except Exception as e:
+                return {"status": "error", "error": f"Failed reading content: {e}"}
+
+        try:
+                import json
+
+                parsed = json.loads(content)
+        except Exception as e:
+                return {"status": "error", "error": f"Invalid JSON in {file_name}: {e}"}
+
+        return {"status": "ok", "file": file_name, "content": parsed}
+
+
+@mcp.tool()
 def update_website_content(payload: dict[str, Any]) -> dict[str, Any]:
     """Safely update website content JSON.
 
