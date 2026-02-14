@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intro", "services"],
+  "properties": {
+    "intro": {"type": "string"},
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "bullets"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "bullets": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

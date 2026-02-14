@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["bio", "services", "projects", "contact"],
+  "properties": {
+    "bio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "title", "location", "summary", "highlights"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "title": {"type": "string"},
+        "location": {"type": "string"},
+        "summary": {"type": "array", "items": {"type": "string"}},
+        "highlights": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intro", "services"],
+      "properties": {
+        "intro": {"type": "string"},
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "description", "bullets"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "description": {"type": "string"},
+              "bullets": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "projects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intro", "projects"],
+      "properties": {
+        "intro": {"type": "string"},
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "description", "tech", "links"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "description": {"type": "string"},
+              "tech": {"type": "array", "items": {"type": "string"}},
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["label", "url"],
+                  "properties": {
+                    "label": {"type": "string"},
+                    "url": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["email", "linkedin", "github"],
+      "properties": {
+        "email": {"type": "string"},
+        "linkedin": {"type": "string"},
+        "github": {"type": "string"},
+        "filloutEmbedUrl": {"type": "string"},
+        "filloutEmbedCode": {"type": "string"}
+      }
+    }
+  }
+}

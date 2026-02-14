@@ -1,0 +1,87 @@
+{
+  "bio": {
+    "name": "Viktoria Gaiser",
+    "title": "AI Consultant",
+    "location": "City, Country",
+    "summary": [
+      "I help teams ship practical AI features: assistants, RAG systems, and automation that integrate cleanly with existing products.",
+      "My focus is reliability: evaluation, guardrails, and deterministic content pipelines."
+    ],
+    "highlights": [
+      "RAG architecture + evaluation",
+      "Workflow automation + agent tooling",
+      "Data privacy and local-first deployments",
+      "Production hardening: observability, cost control, safety",
+      "MCP tool call test"
+    ]
+  },
+  "services": {
+    "intro": "Engagements are lightweight, focused, and oriented toward measurable outcomes.",
+    "services": [
+      {
+        "name": "RAG & Knowledge Assistants",
+        "description": "Design and implementation of retrieval-augmented generation for internal docs, support, and operations.",
+        "bullets": [
+          "Chunking + indexing strategies",
+          "Evaluation harness + quality metrics",
+          "Grounding, citations, and guardrails"
+        ]
+      },
+      {
+        "name": "Automation & Agent Tooling",
+        "description": "Automate repetitive workflows with tool-using agents while keeping deterministic boundaries.",
+        "bullets": [
+          "Task decomposition and tool design",
+          "Permissioning and safe execution",
+          "Human-in-the-loop review paths"
+        ]
+      },
+      {
+        "name": "AI Product & Delivery",
+        "description": "Go from idea to shipped feature with clear scope, timelines, and reliability targets.",
+        "bullets": [
+          "Prototyping → production plan",
+          "Latency + cost profiling",
+          "Monitoring and iteration loops"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "intro": "A selection of representative work. Replace with your real projects and links.",
+    "projects": [
+      {
+        "name": "Support Copilot (RAG)",
+        "description": "A helpdesk assistant that answers from internal docs with evaluation-backed improvements.",
+        "tech": [
+          "Python",
+          "Vector search",
+          "LLM eval"
+        ],
+        "links": [
+          {
+            "label": "Case study",
+            "url": "https://example.com"
+          }
+        ]
+      },
+      {
+        "name": "Ops Automation Agent",
+        "description": "Automated routine operational tasks with strict tool permissions and audit logs.",
+        "tech": [
+          "Node.js",
+          "APIs",
+          "Workflows"
+        ],
+        "links": []
+      }
+    ]
+  },
+  "contact": {
+    "email": "vg435@njit.edu",
+    "linkedin": "https://www.linkedin.com/in/viktoria-gaiser/",
+    "github": "https://github.com/riaaa16",
+    "filloutEmbedUrl": "",
+    "filloutEmbedCode": "<div style=\"width:100%;height:500px;\" data-fillout-id=\"t6nTsu5ThZus\" data-fillout-embed-type=\"standard\" data-fillout-inherit-parameters data-fillout-dynamic-resize></div><script src=\"https://server.fillout.com/embed/v1/\"></script>"
+  }
+}

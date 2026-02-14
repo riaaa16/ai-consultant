@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["email", "linkedin", "github", "filloutEmbedUrl"],
+  "properties": {
+    "email": {"type": "string"},
+    "linkedin": {"type": "string"},
+    "github": {"type": "string"},
+    "filloutEmbedUrl": {"type": "string"}
+  }
+}
