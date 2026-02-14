@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
 
-from jsonschema import validate
+from jsonschema import ValidationError, validate
 
 from .paths import backups_root, content_root
 from .schema_loader import load_schema
@@ -124,7 +124,11 @@ def _backup_file(path: Path) -> Path:
 
 def _validate(file_name: AllowedFile, data: dict[str, Any]) -> None:
     schema = _schema_for(file_name)
-    validate(instance=data, schema=schema)
+    try:
+        validate(instance=data, schema=schema)
+    except ValidationError as e:
+        # Surface a concise, user-facing error message.
+        raise ContentUpdateError(str(e)) from e
 
 
 def _coerce_payload(payload: dict[str, Any]) -> UpdatePayload:
